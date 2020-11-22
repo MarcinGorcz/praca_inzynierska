@@ -1,0 +1,1 @@
+print("SKRYPT w PYTHONIE DZILA")

@@ -4,24 +4,12 @@ import json
 class manage_users:
     path = "./users_config.json"
     test_users = {
-        "LINUXUSER1120": [
-            "linuxuser1",
-            "europe-west6-a",
-            "n1-standard-1",
-            "ubuntufromraw2"
-        ],
-        "LINUXUSER0001": [
-            "linuxuser1",
-            "europe-west6-a",
-            "n1-standard-1",
-            "linuxuser1"
-        ],
-        "LINUXUSER2077": [
-            "linuxuser2",
-            "europe-west6-a",
-            "n1-standard-1",
-            "ubuntufromraw2"
-        ]
+    "passphrase": {
+        "login": "user1",
+        "password": "admin123",
+        "vm_type": "n1-standard-1",
+        "imagename": "user1-22112020"
+    }
     }
 
     def json_init(self):
