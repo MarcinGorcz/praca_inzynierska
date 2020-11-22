@@ -1,5 +1,5 @@
 login = "user1"
-password = ""
+password = "admin123"
 ip = "34.65.196.190"
 
 
@@ -16,4 +16,9 @@ def run_command_shell(command):
         print(error)
 
 def dd_to_server():
-    dd_cmd = "dd if=/dev/sda | gzip -1 - | sshpass -p "+password+" ssh "+login+"@"+ip+"34.65.196.190"" dd of=image.gz"
+	dd_cmd = "dd if=/dev/sda | gzip -1 - | sshpass -p "+password+" ssh "+login+"@" + ip + " dd of=image.gz"
+	print(dd_cmd)
+	run_command_shell(dd_cmd)
+
+
+dd_to_server()

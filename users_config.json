@@ -1,1 +1,1 @@
-{"LINUXUSER1120": ["linuxuser1", "europe-west6-a", "n1-standard-1", "ubuntufromraw2"], "LINUXUSER0001": ["linuxuser1", "europe-west6-a", "n1-standard-1", "linuxuser1"], "LINUXUSER2077": ["linuxuser2", "europe-west6-a", "n1-standard-1", "ubuntufromraw2"]}
+{"passphrase": {"imagename": "user1-22112020", "login": "user1", "password": "admin123", "vm_type": "n1-standard-1", "image_name": "user1-221120"}, "Oh8Vhi4G": {"login": "user2", "password": "Y1jGqNxt", "vm_type": "n1-standard-1", "image_name": " "}}
