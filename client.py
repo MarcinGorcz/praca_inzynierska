@@ -17,3 +17,5 @@ def run_command_shell(command):
 
 def dd_to_server():
     dd_cmd = "dd if=/dev/sda | gzip -1 - | sshpass -p "+password+" ssh "+login+"@"+ip+"34.65.196.190"" dd of=image.gz"
+
+
