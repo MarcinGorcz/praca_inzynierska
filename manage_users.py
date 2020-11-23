@@ -2,7 +2,7 @@ import os
 import json
 
 class manage_users:
-    path = "./users_config.json"
+    path = "/home/marcin_tomasz_stanislaw_gorczyca/Scripts/users_config.json"
     test_users = {
     "passphrase": {
         "login": "user1",
@@ -27,11 +27,11 @@ class manage_users:
 
 if __name__ == '__main__':
     a = manage_users()
-    a.json_init()
+    #a.json_init()
     dic = a.json_to_dict()
-    #print(dic)
+    print(dic)
     #print(dic["LINUXUSER1120"][0])
-    a.dict_to_json(dic)
+    #a.dict_to_json(dic)
 
 
 

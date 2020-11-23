@@ -43,15 +43,16 @@ def run_command(command):
 
 # qemu-img convert -f raw -O vmdk sda.img sda.vmdk
 def create_vmdk(password):
-    img_path = Path("/home/" + users[password]["login"] + "/image")
+    img_path_string = "/home/" + users[password]["login"] + "/image/image"
+    img_path = Path(img_path_string)
     if img_path.is_file():
         create_vmdk_cmd = "qemu-img convert -f raw -O vmdk "
-        create_vmdk_cmd += img_path + " "
-        create_vmdk_cmd += "/home/" + users[password]["login"] + "/"
+        create_vmdk_cmd += img_path_string + " "
+        create_vmdk_cmd += "/home/" + users[password]["login"] + "/vdmk/"
         create_vmdk_cmd += users[password]["login"] + ".vdmk"
         print(create_vmdk_cmd)
         run_command(create_vmdk_cmd)
-        cleanup_files(img_path)
+        cleanup_files(img_path_string)
     else:
         print("VMDK creation failed\n")
         print("No img file \n")
@@ -59,18 +60,20 @@ def create_vmdk(password):
 
 #gsutil cp imagefrompseudo.tar.gz  gs://linux-image-bucket/frompseudouser/compressed-image.tar.gz
 def move_to_storage(password):
-    vdmk_path = Path("/home/" + users[password]["login"] + "/" + users[password]["login"] + ".vdmk")
+    vdmk_path_string = "/home/" + users[password]["login"] + "/vdmk/" + users[password]["login"] + ".vdmk"
+    vdmk_path = Path(vdmk_path_string)
+    print(vdmk_path)
     if vdmk_path.is_file():
-        import subprocess
         import datetime
         x = datetime.datetime.now()
         day = x.strftime("%d") + x.strftime("%m") + x.strftime("%y")
         move_to_bucket = "gsutil cp /home/" + users[password]["login"]
-        move_to_bucket += "/" + users[password]["login"] + ".vdmk "
-        move_to_bucket += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + day + ".vdmk"
+        move_to_bucket += "/vdmk/" + users[password]["login"] + ".vdmk "
+        move_to_bucket += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + day + '.vdmk'
         print(move_to_bucket)
         run_command(move_to_bucket)
-        cleanup_files(vdmk_path)
+        cleanup_files(vdmk_path_string)
+        return day
     else:
         print("Image creation failed\n")
         print("No vmdk file \n")
@@ -84,14 +87,15 @@ def update_users(password, image_name):
 #gcloud compute images import image-name \
 #--source-file source-file \
 #--os os
-def create_image(password):
-    image_name = users[password]["login"] + "-" + day
+def create_image(password,creationday):
+    image_name = users[password]["login"] + "-" + creationday
     create_image_cmd = "gcloud compute images import " + image_name + " --source-file "
-    create_image_cmd += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + day + ".vdmk "
+    create_image_cmd += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + "-" +creationday + ".vdmk "
     create_image_cmd += "--os ubuntu-1604"
     print(create_image_cmd)
     run_command(create_image_cmd)
     update_users(password, image_name)
+
 
 
 def get_passphrase_from_username(login):
@@ -106,5 +110,5 @@ if __name__ == '__main__':
         sys.exit("User not specified")
     passphrase = get_passphrase_from_username(login)
     create_vmdk(passphrase)
-    move_to_storage(passphrase)
-    create_image(passphrase)
+    day = move_to_storage(passphrase)
+    create_image(passphrase, day)
