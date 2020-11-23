@@ -60,7 +60,8 @@ def create_vmdk(password):
 
 #gsutil cp imagefrompseudo.tar.gz  gs://linux-image-bucket/frompseudouser/compressed-image.tar.gz
 def move_to_storage(password):
-    vdmk_path = Path("/home/" + users[password]["login"] + "/vdmk/" + users[password]["login"] + ".vdmk")
+    vdmk_path_string = "/home/" + users[password]["login"] + "/vdmk/" + users[password]["login"] + ".vdmk"
+    vdmk_path = Path(vdmk_path_string)
     print(vdmk_path)
     if vdmk_path.is_file():
         import datetime
@@ -71,7 +72,7 @@ def move_to_storage(password):
         move_to_bucket += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + day + '.vdmk'
         print(move_to_bucket)
         run_command(move_to_bucket)
-        cleanup_files(vdmk_path)
+        cleanup_files(vdmk_path_string)
         return day
     else:
         print("Image creation failed\n")
@@ -89,7 +90,7 @@ def update_users(password, image_name):
 def create_image(password,creationday):
     image_name = users[password]["login"] + "-" + creationday
     create_image_cmd = "gcloud compute images import " + image_name + " --source-file "
-    create_image_cmd += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + creationday + ".vdmk "
+    create_image_cmd += "gs://linux-image-bucket/" + users[password]["login"] + "/" + users[password]["login"] + "-" +creationday + ".vdmk "
     create_image_cmd += "--os ubuntu-1604"
     print(create_image_cmd)
     run_command(create_image_cmd)
