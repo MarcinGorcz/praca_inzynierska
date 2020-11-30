@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>Marcin Gorczyca - Praca Inzynierska</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/settings.css') }}">
+  </head>
+
+<body>
+    <main id="main-holder">
+        <div class="div-holder-top">
+        <p>Image Settings:</p>
+        </div>
+        <div class="div-holder">
+            <p>Virtual Machine Details:</p>
+        </div>
+        <div class="div-holder">
+            <p>Start Virtual Machine:</p>
+            <form>
+                <input type="button" value="StartVM" id="start_vm_button">
+            </form>
+                <p>{{ output_1 }}</p>
+                <p>{{ output_2 }}</p>
+        </div>
+    </main>
+</body>
+
+</html>
