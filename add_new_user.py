@@ -9,6 +9,9 @@ users = man_users.json_to_dict()
 
 default_vm = "n1-standard-1"
 
+#TODO: Foldery uzytkownika tworza sie z ownerem "root" przez co nie sa dostepne
+#TODO: Haslo ustawia sie w zly sposob i nie dziala automatyczne ustawianie
+#TODO: Trzeba testowo wlaczyc polaczenie ssh zeby zaczelo dzialac z zewnatrz ( chyba ? )
 
 def generate_passphrase():
     alphabet = string.ascii_letters + string.digits
@@ -53,10 +56,14 @@ def add_new_user_to_server(user, pass_phrase):
     run_command(create_vmdk_dir_cmd)
     create_image_dir_cmd = "mkdir /home/" + user + "/image"
     run_command(create_image_dir_cmd)
+    create_image_unzipped_dir_cmd = "mkdir /home/" + user + "/unziped_image"
+    run_command(create_image_unzipped_dir_cmd)
     chown_vdmk_cmd = "chown "+ user + ":" + user + "/home/" + user + "/vmdk"
     run_command(chown_vdmk_cmd)
     chown_image_cmd = "chown "+ user + ":" + user + "/home/" + user + "/image"
     run_command(chown_image_cmd)
+    chown_image_unzipped_cmd = "chown "+ user + ":" + user + "/home/" + user + "/unziped_image"
+    run_command(chown_image_unzipped_cmd)
 
     #To nizej nie dziala...
     add_password = 'echo -e \"' + users[pass_phrase]["password"] + '\\n' + users[pass_phrase]["password"] + '\" | ' \

@@ -15,10 +15,10 @@ def index():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    text = request.form['text']
-    processed_text = text.upper()
-    if (validate_user(processed_text)):
-        output = create_vm(processed_text)
+    login = request.form['text']
+    password = request.form['password']
+    if (validate_user(password, login)):
+        output = create_vm(password)
         output1 = output.split("STATUS", 1)[0]
         output2 = output.split("STATUS", 1)[1]
         return render_template('index.html', output_1=output1, output_2=output2)

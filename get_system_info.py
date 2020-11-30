@@ -1,6 +1,12 @@
 import psutil
 import platform
 
+#TODO: To odpala sie na komputerze uzytkownika.
+#TODO: Kto to ma odpalac?
+#TODO: Jak ma byc przekazywana informacja do bazy danych? Jakis server/klient do nadpisywania?
+#TODO: Jak czesto update?
+#TODO: Warto to w ogole robic? Moze lepiej wlaczyc raz i przekazac informacje poza systemem podczas rejestracji?
+
 class parametry_komputera:
     def __init__(self):
         uname = platform.uname()

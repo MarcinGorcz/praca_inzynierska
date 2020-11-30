@@ -1,18 +1,28 @@
-<!-- quiz/templates/index.html -->
-<html>
-  <head>
-    <title>Marcin Gorczyca - Praca Inzynierska</title>
-  </head>
-<body>
-  <h1>Podaj kod:</h1>
-  <form method="POST">
-    <input name="text">
-    <input type="submit">
-  </form>
-<p>{{ invalidcode }}</p>
-<p>{{ output_1 }}</p>
-<p>{{ output_2 }}</p>
+<!DOCTYPE html>
+<html lang="pl">
 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>Marcin Gorczyca - Praca Inzynierska</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/panel.css') }}">
+  </head>
+
+<body>
+  <main id="main-holder">
+  <h1 id="login-header">Podaj kod:</h1>
+    <div id="output">
+          <p>{{ invalidcode }}</p>
+          <p>{{ output_1 }}</p>
+          <p>{{ output_2 }}</p>
+    </div>
+    <form id="login-form" method="POST">
+    <input type="text" name="text" id="username-field" class="login-form-input">
+    <input type="password" name="password" id="password-field" class="login-form-input">
+    <input type="submit" value="StartVM" id="login-form-button">
+    </form>
+
+  </main>
 </body>
 
 </html>
