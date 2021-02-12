@@ -7,20 +7,35 @@
     <title>Marcin Gorczyca - Praca Inzynierska</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/settings.css') }}">
   </head>
-
 <body>
     <main id="main-holder">
         <div class="div-holder-top">
-        <p>Image Settings:</p>
+        <p>Image information:</p>
+            <p>Last created image: {{ date_of_creation }}</p>
         </div>
         <div class="div-holder">
             <p>Virtual Machine Details:</p>
+            <p>currently selected: {{ current_vm_type_selected }}</p>
+            <br>
+            <form action="/change_type" method="POST">
+            <label for="vm_types">Change VM Type:</label>
+                <select name="vm_type" id="vm_types">
+                <option value="e2-standard-2">e2-standard-2</option>
+                <option value="e2-standard-4">e2-standard-4</option>
+                <option value="e2-standard-8">e2-standard-8</option>
+                <option value="e2-standard-16">e2-standard-16</option>
+                <option value="e2-standard-32">e2-standard-32</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit">
+            </form>
         </div>
         <div class="div-holder">
             <p>Start Virtual Machine:</p>
-            <form>
-                <input type="button" value="StartVM" id="start_vm_button">
-            </form>
+                <form method="POST" action="/start_vm">
+                    <input type="submit" value="start" id="start_vm_button">
+                </form>
+                <p>{{ output_0 }}</p>
                 <p>{{ output_1 }}</p>
                 <p>{{ output_2 }}</p>
         </div>

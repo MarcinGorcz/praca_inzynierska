@@ -3,6 +3,27 @@ from make_backup_and_create_image import run_command
 
 #TODO: Skrypt ktory odpala VNC, musi odpalac sie po utworzeniu VM ( wejsc tam i wlaczyc przez ssh vncserver )
 
+
+def get_selected_vm_type_from_json(passcode):
+    man_users = manage_users.manage_users()
+    users = man_users.json_to_dict()
+    return users[passcode]["vm_type"]
+
+
+def set_selected_vm_type_to_json(passcode, new_vm_type):
+    man_users = manage_users.manage_users()
+    users = man_users.json_to_dict()
+    users[passcode]["vm_type"] = new_vm_type
+    man_users.dict_to_json(users)
+
+def get_creation_date_from_json(passcode):
+    man_users = manage_users.manage_users()
+    users = man_users.json_to_dict()
+    if(users[passcode]["image_name"]!= ""):
+        return users[passcode]["image_name"]
+    else:
+        return "IMAGE NOT CREATED YET"
+
 def validate_user(password, login):
     man_users = manage_users.manage_users()
     users = man_users.json_to_dict()

@@ -51,7 +51,7 @@ def run_command(command):
 
 # qemu-img convert -f raw -O vmdk sda.img sda.vmdk
 def create_vmdk(password):
-    img_path_string = "/home/" + users[password]["login"] + "/image/unziped_image"
+    img_path_string = "/home/" + users[password]["login"] + "/unziped_image/image"
     img_path = Path(img_path_string)
     if img_path.is_file():
         create_vmdk_cmd = "qemu-img convert -f raw -O " + format + " "
